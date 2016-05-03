@@ -1,0 +1,36 @@
+@charset "UTF-8"
+
+// common ------------------------------
++is-pc
+  .onlypc
+    display: initial
+  .onlysp
+    display: none
+  
++is-sp
+  .onlypc
+    display: none
+  .onlysp
+    display: initial
+
+.is-hidden
+  display: none !important
+
+
+// element ------------------------------
+html
+  font-size: 10px // for pleeease : root font size
+
+html, body
+  font-family: $font_gothic
+  font-size: 10px
+
+body *
+  box-sizing: border-box
+
+
+// wrapper ------------------------------
+.wrapper
+  font-size: 1.6rem
+  min-width: 320px
+
