@@ -29,15 +29,11 @@ export default class StickController extends EventEmitter {
     });
   }
   
-  checkPosition(){
-    return this.$element.position();
-  }
-  
   movePosition(distance){
-    const before = this.checkPosition();
+    const before = this.position;
     const target = {
-      x: (before.left - distance.x),
-      y: (before.top - distance.y),
+      x: (before.x - distance.x),
+      y: (before.y - distance.y),
     };
     this.jumpPosition(target);
     this.emit('moved', this.position);
