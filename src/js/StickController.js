@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import { EventEmitter } from 'events';
 import TouchController from './TouchController';
 
@@ -37,21 +38,29 @@ export default class StickController extends EventEmitter {
   }
   
   animatePosition(target){
-    this.setPosition(target);
-    this.$element.animate({
-      'top': target.y + 'px',
-      'left': target.x + 'px',
-    }, () => {
-      this.emit('animateend', this.position);
+    if (!target) return;
+    // TODO: jquery脱却したい
+    $(this.position).animate(target, {
+      step: (now, fx) => {
+        const nowTarget = {};
+        nowTarget[fx.prop] = fx.now; // fx.prop -> 'x' or 'y'
+        this.jumpPosition(nowTarget);
+      },
+      complete: () => {
+        this.setPosition(target);
+        this.emit('animateend', this.position);
+      },
     });
   }
   
   jumpPosition(target){
-    this.setPosition(target);
+    if (!target) return;
+    const x = target.x || this.position.x;
+    const y = target.y || this.position.y;
     this.$element.css({
-      'top': target.y + 'px',
-      'left': target.x + 'px',
+      'transform': `translate(${x}px, ${y}px)`,
     });
+    this.setPosition(target);
     this.emit('jumped', this.position);
   }
   
