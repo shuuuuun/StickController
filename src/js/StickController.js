@@ -2,7 +2,7 @@ import { EventEmitter } from 'events';
 import TouchController from './TouchController';
 
 export default class StickController extends EventEmitter {
-  constructor(opts ={}) {
+  constructor(opts = {}) {
     super();
     
     this.$element = opts.$element;
@@ -12,8 +12,11 @@ export default class StickController extends EventEmitter {
   }
   
   setEvent(){
-    const touch = new TouchController();
-    touch.setElement(this.$element.get(0));
+    const touch = new TouchController({
+      touchstartElement: this.$element.get(0),
+      touchmoveElement: document,
+      touchendElement: document,
+    });
     
     touch.on('touchmove', (evt) => {
       this.movePosition({ x: -evt.deltaX, y: -evt.deltaY });
