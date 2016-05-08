@@ -1,9 +1,47 @@
-@charset "UTF-8"
+.stick
+    $size: 250px
+    width: $size
+    height: $size
+    border-radius: $size
+    border: dotted 1px #fff
+    margin: auto
+    position: relative
+    
+    &:before
+        $size: 60px
+        content: ''
+        display: block
+        margin: auto
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        width: $size
+        height: $size
+        border-radius: $size
+        border: solid 2px #fff
 
-// main ------------------------------
-h1
-  font-size: 3.0rem
-  
-  +is-sp
-    font-size: 2.0rem
+.stick__toucharea
+    $size: 200px
+    margin: auto
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    margin: (250px - $size) / 2
 
+.stick__dot
+    $size: 150px
+    width: $size
+    height: $size
+    border-radius: $size
+    background-color: rgba(255,255,255,0.5)
+    border: solid 6px #fff
+    margin: auto
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
