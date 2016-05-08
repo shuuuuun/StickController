@@ -1,14 +1,17 @@
+$stick_container_size: 250px
+$stick_core_size: 50px
+$stick_toucharea_size: 200px
+$stick_dot_size: 160px
+
 .stick
-    $size: 250px
-    width: $size
-    height: $size
-    border-radius: $size
+    width: $stick_container_size
+    height: $stick_container_size
+    border-radius: $stick_container_size
     border: dotted 1px #fff
     margin: auto
     position: relative
     
     &:before
-        $size: 50px
         content: ''
         display: block
         margin: auto
@@ -17,26 +20,24 @@
         left: 0
         right: 0
         bottom: 0
-        width: $size
-        height: $size
-        border-radius: $size
+        width: $stick_core_size
+        height: $stick_core_size
+        border-radius: $stick_core_size
         border: solid 2px #fff
 
 .stick__toucharea
-    $size: 200px
     margin: auto
     position: absolute
     top: 0
     left: 0
     right: 0
     bottom: 0
-    margin: (250px - $size) / 2
+    margin: ($stick_container_size - $stick_toucharea_size) / 2
 
 .stick__dot
-    $size: 160px
-    width: $size
-    height: $size
-    border-radius: $size
+    width: $stick_dot_size
+    height: $stick_dot_size
+    border-radius: $stick_dot_size
     background-color: rgba(255,255,255,0.5)
     border: solid 5px #fff
     margin: auto
