@@ -7,6 +7,7 @@ export default class StickController extends EventEmitter {
     super();
     
     this.$element = opts.$element;
+    this.maxDistance = opts.maxDistance;
     this.position = { x: 0, y: 0 };
     
     this.setEvent();
@@ -55,8 +56,14 @@ export default class StickController extends EventEmitter {
   
   jumpPosition(target){
     if (!target) return;
-    const x = target.x || this.position.x;
-    const y = target.y || this.position.y;
+    let x = target.x || this.position.x;
+    let y = target.y || this.position.y;
+    let d = Math.sqrt(x * x + y * y);
+    if (this.maxDistance && d > this.maxDistance) {
+      let ratio = this.maxDistance / d;
+      x *= ratio;
+      y *= ratio;
+    }
     this.$element.css({
       'transform': `translate(${x}px, ${y}px)`,
     });
