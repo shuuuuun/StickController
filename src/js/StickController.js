@@ -25,6 +25,9 @@ export default class StickController extends EventEmitter {
     });
     touch.on('touchend', (evt) => {
       this.animatePosition({ x: 0, y: 0 });
+      if (evt.isDoubleTap) {
+        this.emit('doubletapped');
+      }
     });
   }
   
