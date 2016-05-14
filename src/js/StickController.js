@@ -8,6 +8,8 @@ export default class StickController extends EventEmitter {
     
     this.$element = opts.$element;
     this.maxDistance = opts.maxDistance;
+    this.holdingDelay = opts.holdingDelay || 1000;
+    this.watchInterval = opts.watchInterval || 100;
     this.position = { x: 0, y: 0 };
     
     this.setEvent();
@@ -19,11 +21,29 @@ export default class StickController extends EventEmitter {
       touchmoveElement: document,
       touchendElement: document,
     });
+    let watchTimer;
+    let delayTimer;
+    let isMoving = false;
     
+    touch.on('touchstart', (evt) => {
+      clearInterval(watchTimer);
+      watchTimer = setInterval(() => {
+        if (!isMoving) {
+          this.emit('holding', this.position);
+        }
+      }, this.watchInterval);
+    });
     touch.on('touchmove', (evt) => {
+      clearTimeout(delayTimer);
+      isMoving = true;
       this.movePosition({ x: -evt.deltaX, y: -evt.deltaY });
+      delayTimer = setTimeout(() => {
+        isMoving = false;
+      }, this.holdingDelay);
     });
     touch.on('touchend', (evt) => {
+      clearInterval(watchTimer);
+      isMoving = false;
       this.animatePosition({ x: 0, y: 0 });
       if (evt.isDoubleTap) {
         this.emit('doubletapped');
