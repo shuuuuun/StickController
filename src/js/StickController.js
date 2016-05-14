@@ -86,6 +86,8 @@ export default class StickController extends EventEmitter {
       let ratio = this.maxDistance / d;
       x *= ratio;
       y *= ratio;
+      target.x = x;
+      target.y = y;
     }
     this.$element.css({
       'transform': `translate(${x}px, ${y}px)`,
